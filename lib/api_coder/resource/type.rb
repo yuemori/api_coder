@@ -18,12 +18,21 @@ module APICoder
       end
 
       class Integer < Value
+        def example
+          Faker::Number.number(3)
+        end
       end
 
       class String < Value
+        def example
+          Faker::Internet.password
+        end
       end
 
       class Float < Value
+        def example
+          Faker::Number.decimal(2)
+        end
       end
 
       register(:integer, Type::Integer)
