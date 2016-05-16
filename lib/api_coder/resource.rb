@@ -1,7 +1,6 @@
 require 'api_coder/resource/link'
 require 'api_coder/resource/param'
 require 'api_coder/resource/enum'
-require 'api_coder/resource/type'
 
 module APICoder
   class Resource

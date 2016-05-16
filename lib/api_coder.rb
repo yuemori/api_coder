@@ -5,6 +5,7 @@ require 'api_coder/version'
 require 'api_coder/parser'
 require 'api_coder/registry'
 require 'api_coder/resource'
+require 'api_coder/type'
 
 module APICoder
   class << self
