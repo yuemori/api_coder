@@ -6,11 +6,16 @@ module APICoder
         self
       end
 
-      %i(title description path method request response).each do |method_name|
-        define_method method_name do |value = nil|
-          instance_variable_set("@#{method_name}", value) unless value.nil?
-          instance_variable_get("@#{method_name}")
+      %i(title description path method request).each do |method_name|
+        define_method method_name do |value|
+          instance_variable_set("@#{method_name}", value)
         end
+      end
+
+      Response = Struct.new(:value, :options)
+
+      def response(value, options = {})
+        @response = Response.new(value, options)
       end
     end
   end
