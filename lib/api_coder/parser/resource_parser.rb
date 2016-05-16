@@ -22,16 +22,14 @@ module APICoder
         end
       end
 
-      Param = Struct.new(:name, :type)
-
       def param(name, type)
-        param = Param.new(name, type)
+        param = APICoder::Resource::Param.new(attributes[:name], name, type)
 
         params << param
       end
 
       def enum(name, params)
-        enum = APICoder::Resource::Enum.new(namespace: attributes[:name], name: name, params: params)
+        enum = APICoder::Resource::Enum.new(attributes[:name], name, params)
 
         enums << enum
       end
