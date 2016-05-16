@@ -6,7 +6,7 @@ module APICoder
       def initialize(namespace, name, type)
         @namespace = namespace
         @name = name
-        @type = type
+        @type = Resource::Type.fetch(type).new
       end
     end
   end
