@@ -1,7 +1,7 @@
 module APICoder
   class Resource
     class Link
-      attr_reader :name, :namespace, :title, :description, :path, :method, :request, :response
+      attr_reader :name, :namespace, :title, :description, :path, :method
 
       def initialize(attributes)
         attributes.each do |key, value|
@@ -10,11 +10,18 @@ module APICoder
       end
 
       def request_params
-        APICoder.find_enum(namespace, request).to_params
+        APICoder.find_enum(namespace, request.enum_name).to_params
       end
 
       def response_params
-        APICoder.find_enum(namespace, response).to_params
+        options = response.options
+        enum_name = response.enum_name
+
+        if options[:array]
+          [APICoder.find_enum(namespace, enum_name).to_params]
+        else
+          APICoder.find_enum(namespace, enum_name).to_params
+        end
       end
 
       private
