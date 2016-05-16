@@ -11,6 +11,14 @@ module APICoder
       resources.register(name, APICoder::Parser.parse(name, &block))
     end
 
+    def find_link(namespace, name)
+      resources.fetch(namespace).link(name)
+    end
+
+    def find_param(namespace, name)
+      resources.fetch(namespace).param(name)
+    end
+
     def find_enum(namespace, name)
       resources.fetch(namespace).enum(name)
     end
