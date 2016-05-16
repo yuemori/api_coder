@@ -3,8 +3,8 @@ require 'api_coder/parser/link_parser'
 
 module APICoder
   module Parser
-    def self.parse(&block)
-      ResourceParser.new.parse(&block)
+    def self.parse(name, &block)
+      ResourceParser.new(name).parse(&block)
     end
   end
 end

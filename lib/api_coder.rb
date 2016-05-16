@@ -8,7 +8,11 @@ require 'api_coder/resource'
 module APICoder
   class << self
     def define(name, &block)
-      resources.register(name, APICoder::Parser.parse(&block))
+      resources.register(name, APICoder::Parser.parse(name, &block))
+    end
+
+    def find_enum(namespace, name)
+      resources.fetch(namespace).enum(name)
     end
 
     def resources

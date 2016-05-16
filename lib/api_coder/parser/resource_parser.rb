@@ -1,19 +1,25 @@
 module APICoder
   module Parser
     class ResourceParser
+      def initialize(name)
+        attributes[:name] = name
+      end
+
       def parse(&block)
         instance_eval(&block)
-        self
+        APICoder::Resource.new(attributes)
       end
 
-      def title(value = nil)
-        @title = value unless value.nil?
-        @title
+      private
+
+      def attributes
+        @attributes ||= {}
       end
 
-      def description(value)
-        @description = value unless value.nil?
-        @description
+      %i(title description).each do |method_name|
+        define_method method_name do |value|
+          attributes[method_name] = value
+        end
       end
 
       Param = Struct.new(:name, :type)
@@ -21,7 +27,7 @@ module APICoder
       def param(name, type)
         param = Param.new(name, type)
 
-        params.register(name, param)
+        params << param
       end
 
       Enum = Struct.new(:name, :params)
@@ -29,25 +35,25 @@ module APICoder
       def enum(name, params)
         enum = Enum.new(name, params)
 
-        enums.register(name, enum)
+        enums << enum
       end
 
       def link(name, &block)
-        result = LinkParser.parse(&block)
+        link = LinkParser.new(attributes[:name], name).parse(&block)
 
-        links.register(name, result)
-      end
-
-      def enums
-        @enums ||= Registry.new(:Enum)
+        links << link
       end
 
       def params
-        @params ||= Registry.new(:Param)
+        attributes[:params] ||= []
+      end
+
+      def enums
+        attributes[:enums] ||= []
       end
 
       def links
-        @links ||= Registry.new(:Link)
+        attributes[:links] ||= []
       end
     end
   end
