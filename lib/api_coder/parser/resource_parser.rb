@@ -21,7 +21,7 @@ module APICoder
       def param(name, type)
         param = Param.new(name, type)
 
-        params << param
+        params.register(name, param)
       end
 
       Enum = Struct.new(:name, :params)
@@ -29,25 +29,25 @@ module APICoder
       def enum(name, params)
         enum = Enum.new(name, params)
 
-        enums << enum
+        enums.register(name, enum)
       end
 
       def link(name, &block)
         result = LinkParser.new.parse(&block)
 
-        links[name] = result
+        links.register(name, result)
       end
 
       def enums
-        @enums ||= []
+        @enums ||= Registry.new(:Enum)
       end
 
       def params
-        @params ||= []
+        @params ||= Registry.new(:Param)
       end
 
       def links
-        @links ||= {}
+        @links ||= Registry.new(:Link)
       end
     end
   end
