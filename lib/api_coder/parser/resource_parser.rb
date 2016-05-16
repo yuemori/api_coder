@@ -33,7 +33,7 @@ module APICoder
       end
 
       def link(name, &block)
-        result = LinkParser.new.parse(&block)
+        result = LinkParser.parse(&block)
 
         links.register(name, result)
       end

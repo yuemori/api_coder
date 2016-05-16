@@ -3,6 +3,7 @@ require 'active_support/core_ext'
 require 'api_coder/version'
 require 'api_coder/parser'
 require 'api_coder/registry'
+require 'api_coder/resource'
 
 module APICoder
   class << self
