@@ -1,4 +1,4 @@
 require 'api_coder/version'
 
-module ApiCoder
+module APICoder
 end

@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe ApiCoder do
+describe APICoder do
 end

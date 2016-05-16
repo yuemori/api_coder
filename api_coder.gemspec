@@ -5,7 +5,7 @@ require 'api_coder/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'api_coder'
-  spec.version       = ApiCoder::VERSION
+  spec.version       = APICoder::VERSION
   spec.authors       = ['yuemori']
   spec.email         = ['yuemori@aiming-inc.com']
 
