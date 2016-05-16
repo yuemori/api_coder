@@ -30,10 +30,8 @@ module APICoder
         params << param
       end
 
-      Enum = Struct.new(:name, :params)
-
       def enum(name, params)
-        enum = Enum.new(name, params)
+        enum = APICoder::Resource::Enum.new(namespace: attributes[:name], name: name, params: params)
 
         enums << enum
       end

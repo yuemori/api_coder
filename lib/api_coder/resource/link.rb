@@ -9,6 +9,14 @@ module APICoder
         end
       end
 
+      def request_params
+        APICoder.find_enum(namespace, request).to_params
+      end
+
+      def response_params
+        APICoder.find_enum(namespace, response).to_params
+      end
+
       private
 
       attr_writer :name, :namespace, :title, :description, :path, :method, :request, :response

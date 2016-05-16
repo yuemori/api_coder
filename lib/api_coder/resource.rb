@@ -1,4 +1,5 @@
 require 'api_coder/resource/link'
+require 'api_coder/resource/enum'
 
 module APICoder
   class Resource
