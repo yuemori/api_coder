@@ -2,37 +2,37 @@ module APICoder
   module Parser
     class LinkParser
       def initialize(namespace, name)
-        attributes[:namespace] = namespace
-        attributes[:name] = name
+        properties[:namespace] = namespace
+        properties[:name] = name
       end
 
       def parse(&block)
         instance_eval(&block)
-        APICoder::Resource::Link.new(attributes)
+        APICoder::Resource::Link.new(properties)
       end
 
       private
 
-      def attributes
-        @attributes ||= {}
+      def properties
+        @properties ||= {}
       end
 
       %i(title description path method request response).each do |method_name|
         define_method method_name do |value|
-          attributes[method_name] = value
+          properties[method_name] = value
         end
       end
 
-      Request = Struct.new(:enum_name)
+      Request = ::Struct.new(:struct_name)
 
-      def request(enum_name)
-        attributes[:request] = Request.new(enum_name)
+      def request(struct_name)
+        properties[:request] = Request.new(struct_name)
       end
 
-      def response(enum_name, options = {})
-        options[:enum_name] = enum_name
+      def response(params_name, options = {})
+        options[:struct_name] = params_name
 
-        attributes[:response] = Resource::Response.new(attributes[:namespace], attributes[:name], options)
+        properties[:response] = Resource::Response.new(properties[:namespace], properties[:name], options)
       end
     end
   end

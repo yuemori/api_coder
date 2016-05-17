@@ -55,12 +55,12 @@ module Rack
         def current_link
           @current_link ||= begin
             ::APICoder.resources.each do |resource|
-              current_link = resource.links.find do |link|
-                link.method == method && link.path == path
+              resource.links.each do |link|
+                return link if link.method == method && link.path == path
               end
-
-              return current_link if current_link
             end
+
+            nil
           end
         end
       end

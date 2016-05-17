@@ -11,24 +11,16 @@ module APICoder
 
       def examples
         if options[:array]
-          Array.new(5) { params_to_example }
+          Array.new(5) { struct_examples }
         else
-          params_to_example
+          struct_examples
         end
       end
 
       private
 
-      def enum
-        APICoder.find_enum(namespace, options.fetch(:enum_name))
-      end
-
-      def params
-        enum.to_params
-      end
-
-      def params_to_example
-        params.map(&:to_example).inject(:merge)
+      def struct_examples
+        APICoder.find_struct(namespace, options.fetch(:struct_name)).to_example
       end
     end
   end

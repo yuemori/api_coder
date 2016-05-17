@@ -1,66 +1,53 @@
 require 'api_coder/resource/link'
-require 'api_coder/resource/param'
-require 'api_coder/resource/enum'
+require 'api_coder/resource/attribute'
+require 'api_coder/resource/struct'
 require 'api_coder/resource/response'
 
 module APICoder
   class Resource
-    attr_reader :name, :description
+    attr_accessor :namespace, :description
 
     def initialize(attributes)
       attributes.each do |key, value|
-        send("#{key}=", value)
+        public_send("#{key}=", value)
       end
     end
 
-    def param(name)
-      params_registry.fetch(name)
+    def attribute(name)
+      attribute_registry.fetch(name)
     end
 
-    def enum(name)
-      enums_registry.fetch(name)
+    def struct(name)
+      struct_registry.fetch(name)
     end
 
     def link(name)
-      links_registry.fetch(name)
+      link_registry.fetch(name)
     end
 
     def links
-      links_registry.values
+      link_registry.values
     end
 
-    private
-
-    attr_writer :name, :description, :links, :enums, :params
-
-    def params=(params)
-      params.each do |param|
-        params_registry.register param.name, param
+    %i(attribute struct link).each do |method_name|
+      define_method "#{method_name}s=" do |objects|
+        objects.each do |object|
+          registry = send("#{method_name}_registry")
+          registry.register object.name, object
+        end
       end
     end
 
-    def params_registry
-      @params_registry ||= Registry.new(:Param)
+    def attribute_registry
+      @attribute_registry ||= Registry.new(:Attribute)
     end
 
-    def enums=(enums)
-      enums.each do |enum|
-        enums_registry.register enum.name, enum
-      end
+    def struct_registry
+      @struct_registry ||= Registry.new(:Struct)
     end
 
-    def enums_registry
-      @enums_registry ||= Registry.new(:Enum)
-    end
-
-    def links=(links)
-      links.each do |link|
-        links_registry.register link.name, link
-      end
-    end
-
-    def links_registry
-      @links_registry ||= Registry.new(:Link)
+    def link_registry
+      @link_registry ||= Registry.new(:Link)
     end
   end
 end

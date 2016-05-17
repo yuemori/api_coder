@@ -1,6 +1,6 @@
 module APICoder
   class Resource
-    class Param
+    class Attribute
       attr_reader :namespace, :name, :type
 
       def initialize(namespace, name, type)

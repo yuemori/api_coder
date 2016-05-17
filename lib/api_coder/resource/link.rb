@@ -1,17 +1,13 @@
 module APICoder
   class Resource
     class Link
-      attr_reader :name, :namespace, :title, :description, :path, :method, :request, :response
+      attr_accessor :name, :namespace, :title, :description, :path, :method, :request, :response
 
       def initialize(attributes)
         attributes.each do |key, value|
-          send("#{key}=", value)
+          public_send("#{key}=", value)
         end
       end
-
-      private
-
-      attr_writer :name, :namespace, :title, :description, :path, :method, :request, :response
     end
   end
 end

@@ -1,55 +1,61 @@
 module APICoder
   module Parser
     class ResourceParser
-      def initialize(name)
-        attributes[:name] = name
+      def initialize(namespace)
+        properties[:namespace] = namespace
       end
 
       def parse(&block)
         instance_eval(&block)
-        APICoder::Resource.new(attributes)
+        APICoder::Resource.new(properties)
       end
 
       private
 
-      def attributes
-        @attributes ||= {}
+      def namespace
+        properties[:namespace]
+      end
+
+      def properties
+        @properties ||= {}
       end
 
       %i(title description).each do |method_name|
         define_method method_name do |value|
-          attributes[method_name] = value
+          properties[method_name] = value
         end
       end
 
-      def param(name, type)
-        param = APICoder::Resource::Param.new(attributes[:name], name, type)
-
-        params << param
+      def attribute(name, type)
+        attributes << APICoder::Resource::Attribute.new(namespace, name, type)
       end
 
-      def enum(name, params)
-        enum = APICoder::Resource::Enum.new(attributes[:name], name, params)
+      def attributes
+        properties[:attributes] ||= []
+      end
 
-        enums << enum
+      def struct(name, attributes)
+        struct = APICoder::Resource::Struct.new(namespace, name, attributes)
+
+        structs << struct
+      end
+
+      def structs
+        properties[:structs] ||= []
       end
 
       def link(name, &block)
-        link = LinkParser.new(attributes[:name], name).parse(&block)
+        link = LinkParser.new(namespace, name).parse(&block)
 
         links << link
       end
 
-      def params
-        attributes[:params] ||= []
-      end
-
-      def enums
-        attributes[:enums] ||= []
-      end
-
       def links
-        attributes[:links] ||= []
+        properties[:links] ||= []
+      end
+
+      def registry_name(suffix)
+        "#{namespace}_#{suffix}".camelize.to_sym
       end
     end
   end

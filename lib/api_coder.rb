@@ -9,20 +9,20 @@ require 'api_coder/type'
 
 module APICoder
   class << self
-    def define(name, &block)
-      resources.register(name, APICoder::Parser.parse(name, &block))
+    def define(namespace, &block)
+      resources.register(namespace, APICoder::Parser.parse(namespace, &block))
     end
 
     def find_link(namespace, name)
       resources.fetch(namespace).link(name)
     end
 
-    def find_param(namespace, name)
-      resources.fetch(namespace).param(name)
+    def find_attribute(namespace, name)
+      resources.fetch(namespace).attribute(name)
     end
 
-    def find_enum(namespace, name)
-      resources.fetch(namespace).enum(name)
+    def find_struct(namespace, name)
+      resources.fetch(namespace).struct(name)
     end
 
     def resources
