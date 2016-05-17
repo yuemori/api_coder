@@ -1,6 +1,7 @@
 require 'api_coder/resource/link'
 require 'api_coder/resource/param'
 require 'api_coder/resource/enum'
+require 'api_coder/resource/response'
 
 module APICoder
   class Resource
@@ -22,6 +23,10 @@ module APICoder
 
     def link(name)
       links_registry.fetch(name)
+    end
+
+    def links
+      links_registry.values
     end
 
     private

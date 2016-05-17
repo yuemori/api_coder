@@ -29,10 +29,10 @@ module APICoder
         attributes[:request] = Request.new(enum_name)
       end
 
-      Response = Struct.new(:enum_name, :options)
-
       def response(enum_name, options = {})
-        attributes[:response] = Response.new(enum_name, options)
+        options[:enum_name] = enum_name
+
+        attributes[:response] = Resource::Response.new(attributes[:namespace], attributes[:name], options)
       end
     end
   end

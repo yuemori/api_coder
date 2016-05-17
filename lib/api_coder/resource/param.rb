@@ -8,6 +8,10 @@ module APICoder
         @name = name
         @type = Type.fetch(type).new
       end
+
+      def to_example
+        { name => type.example }
+      end
     end
   end
 end

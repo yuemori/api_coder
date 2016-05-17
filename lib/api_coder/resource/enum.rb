@@ -1,7 +1,7 @@
 module APICoder
   class Resource
     class Enum
-      attr_reader :namepsace, :name, :params
+      attr_reader :namespace, :name, :params
 
       def initialize(namespace, name, params)
         @name = name
@@ -9,7 +9,7 @@ module APICoder
         @params = params
       end
 
-      def to_param
+      def to_params
         params.map { |name| APICoder.find_param(namespace, name) }
       end
     end
