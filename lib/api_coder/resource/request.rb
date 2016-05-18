@@ -3,7 +3,7 @@ module APICoder
     class Request
       PARAMS_IN_URL_PATTERN = /:[\w]+/
 
-      attr_reader :namespace, :name
+      attr_reader :namespace, :name, :options
 
       def initialize(namespace, name, options)
         @namespace = namespace
@@ -13,6 +13,13 @@ module APICoder
 
       def attributes
         @attributes ||= struct_attributes.concat(path_attributes)
+      end
+
+      def match?(method:, path:)
+        path = path.gsub(%r{/$}, '')
+        path_pattern = /^#{options[:path].gsub(PARAMS_IN_URL_PATTERN, '.+')}$/
+
+        method == options[:method] && path =~ path_pattern
       end
 
       private

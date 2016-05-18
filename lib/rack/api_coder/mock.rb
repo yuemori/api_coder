@@ -56,7 +56,7 @@ module Rack
           @current_link ||= begin
             ::APICoder.resources.each do |resource|
               resource.links.each do |link|
-                return link if link.method == method && link.path == path
+                return link if link.request?(method: method, path: path)
               end
             end
 

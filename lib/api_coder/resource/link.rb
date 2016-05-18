@@ -16,6 +16,10 @@ module APICoder
         @request ||= Resource::Request.new(namespace, name, request_options.merge(path: path, method: method))
       end
 
+      def request?(method:, path:)
+        request.match?(method: method, path: path)
+      end
+
       def request_options
         @request_options ||= {}
       end
