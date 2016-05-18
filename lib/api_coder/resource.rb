@@ -1,6 +1,7 @@
 require 'api_coder/resource/link'
 require 'api_coder/resource/attribute'
 require 'api_coder/resource/struct'
+require 'api_coder/resource/request'
 require 'api_coder/resource/response'
 
 module APICoder

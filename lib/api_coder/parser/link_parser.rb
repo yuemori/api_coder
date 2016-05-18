@@ -2,16 +2,18 @@ module APICoder
   module Parser
     class LinkParser
       def initialize(namespace, name)
-        properties[:namespace] = namespace
-        properties[:name] = name
+        @namespace = namespace
+        @name = name
       end
 
       def parse(&block)
         instance_eval(&block)
-        APICoder::Resource::Link.new(properties)
+        APICoder::Resource::Link.new(namespace, name, properties)
       end
 
       private
+
+      attr_accessor :namespace, :name
 
       def properties
         @properties ||= {}
@@ -23,16 +25,14 @@ module APICoder
         end
       end
 
-      Request = ::Struct.new(:struct_name)
-
-      def request(struct_name)
-        properties[:request] = Request.new(struct_name)
+      def request(struct_name, options = {})
+        options[:struct_name] = struct_name
+        properties[:request_options] = options
       end
 
-      def response(params_name, options = {})
-        options[:struct_name] = params_name
-
-        properties[:response] = Resource::Response.new(properties[:namespace], properties[:name], options)
+      def response(struct_name, options = {})
+        options[:struct_name] = struct_name
+        properties[:response_options] = options
       end
     end
   end

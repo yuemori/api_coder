@@ -3,14 +3,18 @@ module APICoder
     class Struct
       attr_reader :namespace, :name
 
-      def initialize(namespace, name, attributes)
+      def initialize(namespace, name, attribute_names)
         @name = name
         @namespace = namespace
-        @attributes = attributes
+        @attribute_names = attribute_names
+      end
+
+      def attributes
+        @attributes ||= @attribute_namess.map { |name| APICoder.find_attribute(namespace, name) }
       end
 
       def to_example
-        @attributes.map { |name| APICoder.find_attribute(namespace, name).to_example }.inject(&:merge)
+        attributes.map(&:to_example).map(&:inject)
       end
     end
   end
