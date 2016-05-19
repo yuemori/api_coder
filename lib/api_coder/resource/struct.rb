@@ -10,11 +10,11 @@ module APICoder
       end
 
       def attributes
-        @attributes ||= @attribute_namess.map { |name| APICoder.find_attribute(namespace, name) }
+        @attributes ||= @attribute_names.map { |name| APICoder.find_attribute(namespace, name) }
       end
 
       def to_example
-        attributes.map(&:to_example).map(&:inject)
+        attributes.map(&:to_example).inject(&:merge)
       end
     end
   end
