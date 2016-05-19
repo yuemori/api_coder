@@ -15,11 +15,20 @@ module APICoder
         @attributes ||= struct_attributes.concat(path_attributes)
       end
 
-      def match?(method:, path:)
+      def match_request?(method:, path:)
         path = path.gsub(%r{/$}, '')
         path_pattern = /^#{options[:path].gsub(PARAMS_IN_URL_PATTERN, '.+')}$/
 
         method == options[:method] && path =~ path_pattern
+      end
+
+      def match_param?(hash)
+        hash.all? do |key, value|
+          attribute = attributes.find { |a| a.name.to_s == key.to_s }
+          return false unless attribute
+
+          attribute.match? value
+        end
       end
 
       private

@@ -8,11 +8,12 @@ module APICoder
 
       def mock
         require 'rack'
-        require 'rack/api_coder/mock'
+        require 'rack/api_coder'
 
         load config_file
 
         app = Rack::Builder.new do
+          use Rack::APICoder::RequestValidator
           use Rack::APICoder::Mock
           run ->(_env) { [404, {}, [{ id: 'not_found', message: 'link not found' }.to_json]] }
         end

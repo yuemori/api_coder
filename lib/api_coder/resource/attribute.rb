@@ -12,6 +12,10 @@ module APICoder
       def to_example
         { name => type.example }
       end
+
+      def match?(value)
+        type.match? value
+      end
     end
   end
 end

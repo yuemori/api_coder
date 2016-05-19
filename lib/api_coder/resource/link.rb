@@ -17,7 +17,7 @@ module APICoder
       end
 
       def request?(method:, path:)
-        request.match?(method: method, path: path)
+        request.match_request?(method: method, path: path)
       end
 
       def request_options
