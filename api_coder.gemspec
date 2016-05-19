@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['yuemori']
   spec.email         = ['yuemori@aiming-inc.com']
 
-  spec.summary       = 'API Coder'
-  spec.description   = 'API definition by code'
+  spec.summary       = 'API definition by dsl'
+  spec.description   = 'API definition by dsl'
   spec.homepage      = 'https://github.com/yuemori/api_coder'
   spec.license       = 'MIT'
 
