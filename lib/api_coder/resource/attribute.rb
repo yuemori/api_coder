@@ -3,6 +3,8 @@ module APICoder
     class Attribute
       attr_reader :namespace, :name, :type
 
+      delegate :match?, to: :type
+
       def initialize(namespace, name, type)
         @namespace = namespace
         @name = name
@@ -11,10 +13,6 @@ module APICoder
 
       def to_example
         { name => type.example }
-      end
-
-      def match?(value)
-        type.match? value
       end
     end
   end

@@ -8,8 +8,8 @@ module APICoder
   class Resource
     attr_accessor :namespace, :description
 
-    def initialize(attributes)
-      attributes.each do |key, value|
+    def initialize(properties = {})
+      properties.each do |key, value|
         public_send("#{key}=", value)
       end
     end

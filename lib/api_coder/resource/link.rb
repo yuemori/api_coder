@@ -3,11 +3,11 @@ module APICoder
     class Link
       attr_accessor :name, :namespace, :title, :description, :path, :method, :request_options, :response_options
 
-      def initialize(namespace, name, properties)
+      def initialize(namespace, name, options = {})
         @namespace = namespace
         @name = name
 
-        properties.each do |key, value|
+        options.each do |key, value|
           public_send("#{key}=", value)
         end
       end

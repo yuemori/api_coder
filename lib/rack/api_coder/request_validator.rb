@@ -78,7 +78,6 @@ module Rack
         end
       end
 
-
       class Validator
         include Rack::APICoder::CurrentLinkFindable
 
