@@ -20,7 +20,7 @@ module APICoder
           exit
         end
 
-        inject_into_file 'bin/api_coder', "require 'api_coder/#{plugin_name}'", after: "require 'api_coder'\n"
+        inject_into_file 'bin/api_coder', "require 'api_coder/#{plugin_name}'\n", before: "\nAPICoder::CLI.start(ARGV)\n"
       end
     end
   end
