@@ -8,6 +8,12 @@ module APICoder
       def create_config_file
         copy_file 'config.rb', 'config.rb'
       end
+
+      def create_binstub
+        FileUtils.mkdir_p 'bin'
+        template 'api_coder.erb', 'bin/api_coder'
+        `chmod +x bin/api_coder`
+      end
     end
   end
 end
