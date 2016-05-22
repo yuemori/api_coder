@@ -1,3 +1,4 @@
+require 'thor'
 require 'api_coder/commands/init'
 require 'api_coder/commands/mock'
 require 'api_coder/commands/generator'
