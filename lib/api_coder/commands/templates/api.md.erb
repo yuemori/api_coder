@@ -1,0 +1,51 @@
+# API
+
+<%- APICoder.routes.each do |route| -%>
+## <%= route.method %> <%= route.path %> <%= route.title %>
+
+<%= route.description %>
+
+### examples
+
+<%- if route.request.present? -%>
+curl: `curl -X <%= route.method %> -H 'Content-Type: application/json' <%= File.join('localhost:8080', route.path) %>`
+<%- else -%>
+curl: `curl -X <%= route.method %> <%= File.join('localhost:8080', route.path) %>`
+<%- end -%>
+
+```
+<%= route.method %> <%= route.path %> HTTP/1.1
+  <%- if route.method != 'GET' -%>
+Content-Type: application/json
+  <%- end -%>
+Host: api.example.com
+  <%- unless route.method == 'GET' -%>
+
+<%= JSON.pretty_generate(route.request.examples) %>
+  <%- end -%>
+```
+
+```
+HTTP/1.1 <%= route.status_code %>
+Content-Type: application/json
+
+<%= JSON.pretty_generate(route.response.examples) %>
+```
+
+  <%- if route.parameters.present? -%>
+### Parameters
+
+    <%- route.parameters.each do |attribute| -%>
+- <%= attribute.name %>
+  - Type: <%= attribute.type.name %>
+    <%- end -%>
+
+  <%- end -%>
+### Responses
+
+  <%- route.responses.each do |attribute| -%>
+- <%= attribute.name %>
+  - Type: <%= attribute.type.name %>
+  <%- end -%>
+
+<%- end -%>

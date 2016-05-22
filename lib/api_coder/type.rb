@@ -12,7 +12,7 @@ module APICoder
 
     class Value
       def name
-        self.class.demodulize.underscore.to_sym
+        self.class.name.demodulize.underscore.to_sym
       end
 
       def valid?(value) # rubocop:disable Lint/UnusedMethodArgument

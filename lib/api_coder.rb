@@ -32,25 +32,5 @@ module APICoder
     def routes
       @routes ||= Registry.new(:Route)
     end
-
-    def define(namespace, &block)
-      resources.register(namespace, APICoder::Parser.parse(namespace, &block))
-    end
-
-    def find_link(namespace, name)
-      resources.fetch(namespace).link(name)
-    end
-
-    def find_attribute(namespace, name)
-      resources.fetch(namespace).attribute(name)
-    end
-
-    def find_struct(namespace, name)
-      resources.fetch(namespace).struct(name)
-    end
-
-    def resources
-      @resources ||= Registry.new(:Resource)
-    end
   end
 end

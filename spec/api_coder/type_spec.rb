@@ -16,21 +16,21 @@ end
 
 shared_examples_for 'type match' do
   context 'when match value given' do
-    subject { described_class.new.match?(valid_value) }
+    subject { described_class.new.valid?(valid_value) }
 
     it { is_expected.to be_truthy }
   end
 
   context 'when not match value given' do
-    subject { described_class.new.match?(invalid_value) }
+    subject { described_class.new.valid?(invalid_value) }
 
     it { is_expected.to be_falsey }
   end
 end
 
 describe APICoder::Type::Value do
-  describe '#match?' do
-    subject { described_class.new.match?(value) }
+  describe '#valid?' do
+    subject { described_class.new.valid?(value) }
 
     let(:value) { nil }
 
@@ -39,7 +39,7 @@ describe APICoder::Type::Value do
 end
 
 describe APICoder::Type::String do
-  describe '#match?' do
+  describe '#valid?' do
     let(:valid_value) { '0' }
     let(:invalid_value) { 0 }
 
@@ -48,7 +48,7 @@ describe APICoder::Type::String do
 end
 
 describe APICoder::Type::Integer do
-  describe '#match?' do
+  describe '#valid?' do
     let(:valid_value) { 0 }
     let(:invalid_value) { '0' }
 
@@ -57,7 +57,7 @@ describe APICoder::Type::Integer do
 end
 
 describe APICoder::Type::Float do
-  describe '#match?' do
+  describe '#valid?' do
     let(:valid_value) { 0.1 }
     let(:invalid_value) { '0.1' }
 

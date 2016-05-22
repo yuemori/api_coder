@@ -13,6 +13,10 @@ module APICoder
       end
     end
 
+    def status_code
+      method == 'POST' ? 201 : 200
+    end
+
     def name
       method.downcase + path
     end
@@ -23,6 +27,14 @@ module APICoder
 
     def valid_params?(hash)
       request.valid?(hash)
+    end
+
+    def parameters
+      request&.attributes || []
+    end
+
+    def responses
+      response&.attributes || []
     end
 
     private

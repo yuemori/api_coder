@@ -7,6 +7,10 @@ module APICoder
       @options = options
     end
 
+    def attributes
+      enum.attributes
+    end
+
     def examples
       enum.examples
     end

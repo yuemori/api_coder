@@ -1,7 +1,6 @@
 require 'api_coder/commands/init'
 require 'api_coder/commands/mock'
-require 'api_coder/commands/install'
-require 'api_coder/commands/install_plugin'
+require 'api_coder/commands/generator'
 
 module APICoder
   class CLI < Thor
@@ -17,6 +16,13 @@ module APICoder
       'mock',
       'mock config.rb',
       'run mock server from api_coder'
+    )
+
+    register(
+      Commands::Generator,
+      'generate',
+      'generate COMMAND',
+      'generate files from api_coder'
     )
   end
 end
