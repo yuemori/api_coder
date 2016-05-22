@@ -18,19 +18,5 @@ module APICoder
       'mock config.rb',
       'run mock server from api_coder'
     )
-
-    register(
-      Commands::Install,
-      'install',
-      'install',
-      'install api_coder'
-    )
-
-    register(
-      Commands::InstallPlugin,
-      'install:plugin',
-      'install:plugin plugin_name',
-      'install api_coder plugin'
-    )
   end
 end
