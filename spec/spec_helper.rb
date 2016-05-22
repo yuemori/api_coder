@@ -1,6 +1,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'api_coder'
 require 'shoulda-matchers'
+require 'rack/test'
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|

@@ -41,14 +41,12 @@ module APICoder
 
         def params(enum_name)
           enum = APICoder.enums.fetch(enum_name)
-          options[:params] = enum
+          options[:request] = enum
         end
-
-        Response = Struct.new(:enum, :options)
 
         def return_type(enum_name, response_options = {})
           enum = APICoder.enums.fetch(enum_name)
-          options[:return_type] = Response.new(enum, response_options)
+          options[:response] = Response.new(enum, response_options)
         end
       end
     end

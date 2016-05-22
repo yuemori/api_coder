@@ -10,8 +10,6 @@ module Rack
       end
 
       class RequestHandler
-        include Rack::APICoder::CurrentLinkFindable
-
         def initialize(app)
           @app = app
         end
@@ -19,10 +17,16 @@ module Rack
         def call(env)
           @env = env
 
-          if current_link
+          if current_route
             dummy_response
           else
             @app.call(env)
+          end
+        end
+
+        def current_route
+          ::APICoder.routes.find do |route|
+            route.pattern.match(path) && route.method == method
           end
         end
 
@@ -35,7 +39,7 @@ module Rack
         end
 
         def response_examples
-          current_link.response.examples
+          current_route.response.examples
         end
 
         def dummy_body
@@ -44,6 +48,14 @@ module Rack
 
         def request
           @request ||= Rack::Request.new(@env)
+        end
+
+        def method
+          request.request_method
+        end
+
+        def path
+          request.path_info
         end
       end
     end

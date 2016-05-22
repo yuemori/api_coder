@@ -7,5 +7,9 @@ module APICoder
       @attributes = attributes
       @options = options
     end
+
+    def examples
+      attributes.map(&:example).inject(:merge)
+    end
   end
 end
