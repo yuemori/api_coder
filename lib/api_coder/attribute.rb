@@ -10,5 +10,9 @@ module APICoder
     def example
       { name => type.example }
     end
+
+    def valid?(value)
+      type.valid?(value)
+    end
   end
 end

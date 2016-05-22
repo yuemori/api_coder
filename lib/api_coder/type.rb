@@ -15,7 +15,7 @@ module APICoder
         self.class.demodulize.underscore.to_sym
       end
 
-      def match?(value) # rubocop:disable Lint/UnusedMethodArgument
+      def valid?(value) # rubocop:disable Lint/UnusedMethodArgument
         true
       end
     end
@@ -25,7 +25,7 @@ module APICoder
         Faker::Number.number(3)
       end
 
-      def match?(value)
+      def valid?(value)
         value.is_a? ::Integer
       end
     end
@@ -35,7 +35,7 @@ module APICoder
         Faker::Internet.password
       end
 
-      def match?(value)
+      def valid?(value)
         value.is_a? ::String
       end
     end
@@ -45,7 +45,7 @@ module APICoder
         Faker::Number.decimal(2)
       end
 
-      def match?(value)
+      def valid?(value)
         value.is_a? ::Float
       end
     end

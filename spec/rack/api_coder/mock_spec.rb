@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'rack/api_coder'
 
 describe Rack::APICoder::Mock, type: :request do
   include Rack::Test::Methods
@@ -11,7 +10,7 @@ describe Rack::APICoder::Mock, type: :request do
   let(:app) do
     Rack::Builder.new do
       use Rack::APICoder::Mock
-      run ->(_env) { [404, {}, [{ id: 'not_found', message: 'link not found' }.to_json]] }
+      run ->(_env) { [500, {}, ['Internal Server Error']] }
     end
   end
 

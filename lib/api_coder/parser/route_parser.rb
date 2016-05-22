@@ -41,7 +41,7 @@ module APICoder
 
         def params(enum_name)
           enum = APICoder.enums.fetch(enum_name)
-          options[:request] = enum
+          options[:request] = Request.new(enum)
         end
 
         def return_type(enum_name, response_options = {})

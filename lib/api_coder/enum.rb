@@ -11,5 +11,16 @@ module APICoder
     def examples
       attributes.map(&:example).inject(:merge)
     end
+
+    def valid?(hash)
+      hash = hash.symbolize_keys
+
+      hash.all? do |key, value|
+        attribute = attributes.find { |a| a.name == key }
+        return false unless attribute
+
+        attribute.valid?(value)
+      end
+    end
   end
 end

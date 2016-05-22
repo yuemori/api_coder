@@ -79,15 +79,13 @@ module Rack
       end
 
       class Validator
-        include Rack::APICoder::CurrentLinkFindable
-
         def initialize(env)
           @request = Rack::Request.new(env)
         end
 
         def validate!
+          raise LinkNotFound.new, request unless current_route
           return if method == 'GET'
-          raise LinkNotFound.new, request unless current_link
           raise InvalidContentTypeError.new, content_type unless content_type_json?
           raise InvalidParameterError.new, body unless valid_body?
         end
@@ -95,6 +93,20 @@ module Rack
         private
 
         attr_reader :request
+
+        def method
+          request.request_method
+        end
+
+        def path
+          request.path_info
+        end
+
+        def current_route
+          ::APICoder.routes.find do |route|
+            route.pattern.match(path) && route.method == method
+          end
+        end
 
         def body
           unless @body
@@ -118,7 +130,7 @@ module Rack
         end
 
         def valid_body?
-          current_link.request.match_param? parsed_body
+          current_route.valid_params? parsed_body
         rescue JSON::JSONError
           false
         end

@@ -21,6 +21,10 @@ module APICoder
       %r{^#{path.gsub(PARAMS_IN_URL_PATTERN, '.+')}\/?$}
     end
 
+    def valid_params?(hash)
+      request.valid?(hash)
+    end
+
     private
 
     attr_writer :description, :title, :request, :response
