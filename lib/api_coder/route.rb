@@ -30,15 +30,21 @@ module APICoder
     end
 
     def parameters
-      request&.attributes || []
+      @parameters ||= request.attributes + attributes_in_url
     end
 
     def responses
-      response&.attributes || []
+      @responses ||= response.attributes
     end
 
     private
 
     attr_writer :description, :title, :request, :response
+
+    def attributes_in_url
+      path.scan(PARAMS_IN_URL_PATTERN).map do |param|
+        Attribute.new params, :integer, serializable: true
+      end
+    end
   end
 end
