@@ -11,8 +11,15 @@ require 'api_coder/response'
 require 'api_coder/registry'
 require 'api_coder/type'
 
+require 'api_coder/namespace'
+require 'api_coder/element'
+
 module APICoder
   class << self
+    def load(file)
+      Parser.new.load(file)
+    end
+
     def enum(name, &block)
       enum = Parser::EnumParser.new(name).parse(&block)
 

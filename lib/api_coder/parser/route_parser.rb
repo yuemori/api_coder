@@ -1,5 +1,5 @@
 module APICoder
-  module Parser
+  class Parser
     class RouteParser
       def parse(&block)
         instance_eval(&block)

@@ -1,5 +1,5 @@
 module APICoder
-  module Parser
+  class Parser
     class EnumParser
       attr_reader :name, :enum
 
